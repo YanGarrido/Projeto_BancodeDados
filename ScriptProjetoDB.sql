@@ -27,15 +27,6 @@ CREATE TABLE IF NOT EXISTS locais (
     descricao TEXT
 );
 
-CREATE TABLE IF NOT EXISTS tipos_eventos (
-    id_tipo INT AUTO_INCREMENT PRIMARY KEY,
-    descricao VARCHAR(100) NOT NULL
-);
-CREATE TABLE IF NOT EXISTS tipos_reunioes (
-    id_tipo INT AUTO_INCREMENT PRIMARY KEY,
-    descricao VARCHAR(100) NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS eventos (
     id_evento INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -62,32 +53,3 @@ CREATE TABLE IF NOT EXISTS reunioes (
     FOREIGN KEY (id_tipo) REFERENCES tipos_reunioes(id_tipo)
 );
 
-CREATE TABLE IF NOT EXISTS ministerio_membros (
-    id_participacao INT AUTO_INCREMENT PRIMARY KEY,
-    id_membro INT NOT NULL,
-    id_ministerio INT NOT NULL,
-    data_inicio DATE NOT NULL,
-    data_fim DATE,
-    FOREIGN KEY (id_membro) REFERENCES membros(id_membro),
-    FOREIGN KEY (id_ministerio) REFERENCES ministerio(id_ministerio)
-);
-
-CREATE TABLE IF NOT EXISTS eventos_participantes (
-    id_participacao INT AUTO_INCREMENT PRIMARY KEY,
-    id_evento INT NOT NULL,
-    id_membro INT NOT NULL,
-    status_presenca ENUM('confirmado', 'presente', 'ausente') DEFAULT 'confirmado',
-    check_in DATETIME,
-    FOREIGN KEY (id_evento) REFERENCES eventos(id_evento),
-    FOREIGN KEY (id_membro) REFERENCES membros(id_membro)
-);
-
-CREATE TABLE IF NOT EXISTS reunioes_participantes (
-    id_participacao INT AUTO_INCREMENT PRIMARY KEY,
-    id_reuniao INT NOT NULL,
-    id_membro INT NOT NULL,
-    status_presenca ENUM('confirmado', 'presente', 'ausente') DEFAULT 'confirmado',
-    check_in DATETIME,
-    FOREIGN KEY (id_reuniao) REFERENCES reunioes(id_reuniao),
-    FOREIGN KEY (id_membro) REFERENCES membros(id_membro)
-);
